@@ -1,0 +1,106 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Admin {
+  id        Int      @id @default(autoincrement())
+  firstName String
+  lastName  String?
+  noHp      String
+  email     String   @unique
+  password  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Client {
+  id        Int       @id @default(autoincrement())
+  firstName String
+  lastName  String?
+  noHp      String
+  email     String    @unique
+  password  String
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  Booking   Booking[]
+}
+
+model Pemilik {
+  id        Int      @id @default(autoincrement())
+  firstName String
+  lastName  String?
+  noHp      String
+  email     String   @unique
+  password  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  Kost      Kost[]
+}
+
+model Kost {
+  id          Int      @id @default(autoincrement())
+  isVerified  Boolean  @default(false)
+  namaKost    String
+  description String   @default("")
+  alamat      String
+  latitude    String
+  longitude   String
+  pemilikId   Int
+  pemilik     Pemilik  @relation(fields: [pemilikId], references: [id], onUpdate: Cascade, onDelete: Cascade)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  Kamar       Kamar[]
+}
+
+model Kamar {
+  id          Int       @id @default(autoincrement())
+  namaKamar   String
+  description String    @default("")
+  harga       Int
+  fasilitas   String    @default("")
+  ukuran      String
+  jumlah      Int
+  kostId      Int
+  kost        Kost      @relation(fields: [kostId], references: [id], onUpdate: Cascade, onDelete: Cascade)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  Booking     Booking[]
+}
+
+enum BookingState {
+  pending
+  confirmed
+  canceled
+}
+
+model Booking {
+  id        Int          @id @default(autoincrement())
+  checkIn   DateTime
+  checkOut  DateTime
+  status    BookingState @default(pending)
+  client    Client       @relation(fields: [clientId], references: [id], onUpdate: Cascade, onDelete: Cascade)
+  clientId  Int
+  kamar     Kamar        @relation(fields: [kamarId], references: [id], onUpdate: Cascade, onDelete: Cascade)
+  kamarId   Int
+  createdAt DateTime     @default(now())
+  updatedAt DateTime     @updatedAt
+  Payment   Payment[]
+}
+
+model Payment {
+  id        Int      @id @default(autoincrement())
+  status    Boolean  @default(false)
+  paidDate  DateTime
+  bookingId Int
+  booking   Booking  @relation(fields: [bookingId], references: [id], onUpdate: Cascade, onDelete: Cascade)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}

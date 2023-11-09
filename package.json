@@ -1,0 +1,22 @@
+{
+  "name": "kitab-backend",
+  "version": "1.0.50",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "bun run --watch src/index.ts",
+    "run": "bun run src/index.ts",
+    "prisma:generate": "prisma generate",
+    "prisma:migrate:dev": "prisma migrate dev --name init"
+  },
+  "dependencies": {
+    "@elysiajs/jwt": "^0.7.0",
+    "@prisma/client": "5.5.2",
+    "elysia": "latest"
+  },
+  "devDependencies": {
+    "@types/node": "^20.9.0",
+    "bun-types": "^1.0.11",
+    "prisma": "^5.5.2"
+  },
+  "module": "src/index.js"
+}
