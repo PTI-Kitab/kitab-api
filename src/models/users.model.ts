@@ -1,7 +1,9 @@
 import { t } from "elysia";
 
 export const Client = t.Object({
-  id: t.Number(),
+  id: t.Number({
+    error: "Id user tidak valid",
+  }),
   firstName: t.String({
     minLength: 3,
     maxLength: 255,
@@ -13,6 +15,7 @@ export const Client = t.Object({
       error: "Nama belakang maksimal 255 karakter",
     })
   ),
+  gender: t.Union([t.Literal("pria"), t.Literal("wanita")]),
   noHp: t.String({
     pattern: `^(\\+62|62|0)8[1-9][0-9]{6,9}$`,
     error: "Nomor telepon tidak valid",
@@ -27,8 +30,12 @@ export const Client = t.Object({
     minLength: 8,
     error: "Password minimal 8 karakter",
   }),
-  createdAt: t.Date(),
-  updatedAt: t.Date(),
+  createdAt: t.Date({
+    error: "Tanggal createdAt tidak valid",
+  }),
+  updatedAt: t.Date({
+    error: "Tanggal updatedAt tidak valid",
+  }),
 });
 
 export const loginDto = t.Pick(Client, ["email", "password"]);
@@ -37,5 +44,6 @@ export const registerDto = t.Pick(Client, [
   "lastName",
   "noHp",
   "email",
+  "gender",
   "password",
 ]);
