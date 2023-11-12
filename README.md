@@ -13,3 +13,9 @@ bun run dev
 ```
 
 Open http://localhost:3000/ with your browser to see the result.
+
+## Docs
+Docs is auto generated and can be accessed via swagger. To access it, open http://localhost:3000/swagger/
+
+### Postman
+To import docs into Postman (or anything), can access to http://localhost:3000/swagger/json
