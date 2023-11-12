@@ -7,6 +7,7 @@ const ENV = {
   NODE_ENV: process.env.NODE_ENV || "development",
   PRISMA_LOG: process.env.PRISMA_LOG || "info",
   PRISMA_CLIENT_LOG: process.env.PRISMA_CLIENT_LOG || "info",
+  APP_MIDTRANS_SERVER_KEY: process.env.APP_MIDTRANS_SERVER_KEY || "",
 };
 
 export default ENV;

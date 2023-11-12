@@ -1,5 +1,5 @@
-import { t } from "elysia";
-import type { Responses } from "@/utils/responses";
+import Elysia, { t } from "elysia";
+import { errorResponse, type Responses } from "@/utils/responses";
 
 export const errors = {
   response: {
@@ -41,3 +41,35 @@ export class ThrowErrorResponse extends Error {
     super(message);
   }
 }
+
+export const errorHandler = new Elysia() // register error handler
+  .error({
+    respError: ThrowErrorResponse,
+  })
+
+  .onError(({ code, error, set }) => {
+    console.error(code, error.message);
+
+    if (code === "VALIDATION") {
+      set.status = 422;
+      return errorResponse(422, error.message);
+    }
+
+    if (code === "NOT_FOUND") {
+      set.status = 404;
+      return errorResponse(404, error.message);
+    }
+
+    if (code === "PARSE") {
+      set.status = 400;
+      return errorResponse(400, error.message);
+    }
+
+    if (Number.isNaN(Number(code))) {
+      set.status = 500;
+      return errorResponse(500, error.message);
+    }
+
+    set.status = Number(code) ?? 500;
+    return errorResponse(Number(code) ?? 500, error.message);
+  });

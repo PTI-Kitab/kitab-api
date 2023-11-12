@@ -1,13 +1,41 @@
 import { Elysia, t } from "elysia";
+import { swagger } from "@elysiajs/swagger";
+import { staticPlugin } from "@elysiajs/static";
 import ENV from "@/utils/env";
-import { ThrowErrorResponse } from "@/utils/errors";
+import { ThrowErrorResponse, errorHandler } from "@/utils/errors";
 import { successResponse, errorResponse } from "@/utils/responses";
 
 // handlers
-import registerHandler from "./handlers/auth/register.handler";
-import loginHandler from "./handlers/auth/login.handler";
+import registerHandler from "@/handlers/auth/register.handler";
+import loginHandler from "@/handlers/auth/login.handler";
+import userHandler from "@/handlers/users/user.handler";
+import articleHandler from "@/handlers/articles/article.handler";
+import statisticHandler from "@/handlers/statistics/statistic.handler";
+import kostManagerHandler from "@/handlers/pemilik/kostManager.handler";
+import clientKostHandler from "@/handlers/clients/kost.handler";
+import uploadGambarHandler from "./handlers/gambar/uploadGambar.handler";
+import myKostHandler from "./handlers/clients/myKost.handler";
+import listingHandler from "./handlers/clients/listing.handler";
+import payoutHandler from "./handlers/pemilik/payout.handler";
 
 const app = new Elysia()
+  // swagger
+  .use(
+    swagger({
+      autoDarkMode: true,
+      documentation: {
+        info: {
+          title: "KITAB API",
+          description: "KITAB API Documentation",
+          version: ENV.APP_VERSION,
+        },
+      },
+    })
+  )
+
+  // static
+  .use(staticPlugin())
+
   .get("/", () =>
     successResponse(200, {
       appName: "KITAB running on Elysia",
@@ -16,40 +44,29 @@ const app = new Elysia()
     })
   )
 
-  // register error handler
-  .error({
-    respError: ThrowErrorResponse,
-  })
-
-  .onError(({ code, error, set }) => {
-    console.error(code, error.message);
-
-    if (code === "VALIDATION") {
-      set.status = 422;
-      return errorResponse(422, error.message);
-    }
-
-    if (code === "NOT_FOUND") {
-      set.status = 404;
-      return errorResponse(404, error.message);
-    }
-
-    if (code === "PARSE") {
-      set.status = 400;
-      return errorResponse(400, error.message);
-    }
-
-    if (Number.isNaN(Number(code))) {
-      set.status = 500;
-      return errorResponse(500, error.message);
-    }
-
-    set.status = Number(code);
-    return errorResponse(Number(code), error.message);
-  })
+  // use error handler
+  .use(errorHandler)
 
   // routes
-  .group("/auth", (app) => app.use(registerHandler).use(loginHandler))
+  .group("/auth", (app) => app.use(registerHandler).use(loginHandler)) // /auth
+
+  // public
+  .use(listingHandler) // /listings
+
+  // client
+  .use(clientKostHandler) // /client
+  .use(myKostHandler) // /myKost
+
+  // admin
+  .use(articleHandler) // /articles
+  .use(userHandler) // /users
+  .use(statisticHandler) // /statistics
+
+  // pemilik
+  .use(kostManagerHandler) // /kostManager
+  .use(payoutHandler) // /payout
+
+  .use(uploadGambarHandler) // /upload
 
   // listen
   .listen(ENV.APP_PORT, (server) => {
