@@ -24,6 +24,7 @@ const listingHandler = new Elysia({ prefix: "/listings" })
           capacity: true,
           kost: {
             select: {
+              id: true,
               namaKost: true,
               alamat: true,
             },
