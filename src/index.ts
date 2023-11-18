@@ -37,41 +37,36 @@ const app = new Elysia()
   .use(errorHandler)
 
   // static
-  .use(staticPlugin({ prefix: "/public" }))
+  .use(staticPlugin())
 
-  .group(
-    "/api",
-    (app) =>
-      app
-        .get("/", () =>
-          successResponse(200, {
-            appName: "KITAB running on Elysia",
-            message: "Hello world!",
-            version: ENV.APP_VERSION,
-          })
-        )
-
-        // routes
-        .group("/auth", (app) => app.use(registerHandler).use(loginHandler)) // /auth
-
-        // public
-        .use(listingHandler) // /listings
-
-        // client
-        .use(clientKostHandler) // /client
-        .use(myKostHandler) // /myKost
-
-        // admin
-        .use(articleHandler) // /articles
-        .use(userHandler) // /users
-        .use(statisticHandler) // /statistics
-
-        // pemilik
-        .use(kostManagerHandler) // /kostManager
-        .use(payoutHandler) // /payout
-
-        .use(uploadGambarHandler) // /upload
+  .get("/", () =>
+    successResponse(200, {
+      appName: "KITAB running on Elysia",
+      message: "Hello world!",
+      version: ENV.APP_VERSION,
+    })
   )
+
+  // routes
+  .group("/auth", (app) => app.use(registerHandler).use(loginHandler)) // /auth
+
+  // public
+  .use(listingHandler) // /listings
+
+  // client
+  .use(clientKostHandler) // /client
+  .use(myKostHandler) // /myKost
+
+  // admin
+  .use(articleHandler) // /articles
+  .use(userHandler) // /users
+  .use(statisticHandler) // /statistics
+
+  // pemilik
+  .use(kostManagerHandler) // /kostManager
+  .use(payoutHandler) // /payout
+
+  .use(uploadGambarHandler) // /upload
 
   // listen
   .listen(ENV.APP_PORT, (server) => {
