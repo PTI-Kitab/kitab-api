@@ -8,6 +8,7 @@ const ENV = {
   PRISMA_LOG: process.env.PRISMA_LOG || "info",
   PRISMA_CLIENT_LOG: process.env.PRISMA_CLIENT_LOG || "info",
   APP_MIDTRANS_SERVER_KEY: process.env.APP_MIDTRANS_SERVER_KEY || "",
+  APP_URL: process.env.APP_URL || "http://localhost:3000",
 };
 
 export default ENV;

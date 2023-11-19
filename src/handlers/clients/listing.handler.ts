@@ -42,7 +42,7 @@ const listingHandler = new Elysia({ prefix: "/listings" })
       const data = listingKamar.map((kamar) => ({
         ...kamar,
         GambarKamar: kamar.GambarKamar.map(
-          (gambar) => `/public/${gambar.image}`
+          (gambar) => `${process.env.APP_URL}/public/${gambar.image}`
         ),
       }));
 

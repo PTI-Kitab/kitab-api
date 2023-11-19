@@ -39,7 +39,7 @@ const kostManagerHandler = new Elysia({ prefix: "/kostManager" })
 
           const data = kostListing.map((kost) => ({
             ...kost,
-            GambarKost: `/public/${kost.GambarKost[0].image}`,
+            GambarKost: `${process.env.APP_URL}/public/${kost.GambarKost[0].image}`,
           }));
 
           return successResponse(200, data);
@@ -74,7 +74,7 @@ const kostManagerHandler = new Elysia({ prefix: "/kostManager" })
           const data = {
             ...kost,
             GambarKost: kost.GambarKost.map(
-              (gambar) => `/public/${gambar.image}`
+              (gambar) => `${process.env.APP_URL}/public/${gambar.image}`
             ),
           };
 
@@ -189,7 +189,7 @@ const kostManagerHandler = new Elysia({ prefix: "/kostManager" })
           const data = {
             ...updatedKost,
             GambarKost: updatedKost.GambarKost.map(
-              (gambar) => `/public/${gambar.image}`
+              (gambar) => `${process.env.APP_URL}/public/${gambar.image}`
             ),
           };
 
@@ -284,7 +284,7 @@ const kostManagerHandler = new Elysia({ prefix: "/kostManager" })
 
           const data = kamar.map((kamar) => ({
             ...kamar,
-            GambarKamar: `/public/${kamar.GambarKamar[0].image}`,
+            GambarKamar: `${process.env.APP_URL}/public/${kamar.GambarKamar[0].image}`,
           }));
 
           return successResponse(200, data);
@@ -346,7 +346,7 @@ const kostManagerHandler = new Elysia({ prefix: "/kostManager" })
           const data = {
             ...kamar,
             GambarKamar: kamar.GambarKamar.map(
-              (gambar) => `/public/${gambar.image}`
+              (gambar) => `${process.env.APP_URL}/public/${gambar.image}`
             ),
           };
 
@@ -412,7 +412,7 @@ const kostManagerHandler = new Elysia({ prefix: "/kostManager" })
           const data = {
             ...kamar,
             GambarKamar: kamar.GambarKamar.map(
-              (gambar) => `/public/${gambar.image}`
+              (gambar) => `${process.env.APP_URL}/public/${gambar.image}`
             ),
           };
 
@@ -521,7 +521,7 @@ const kostManagerHandler = new Elysia({ prefix: "/kostManager" })
           const data = {
             ...updatedKamar,
             GambarKamar: updatedKamar.GambarKamar.map(
-              (gambar) => `/public/${gambar.image}`
+              (gambar) => `${process.env.APP_URL}/public/${gambar.image}`
             ),
           };
 

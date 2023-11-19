@@ -97,7 +97,7 @@ const myKostHandler = new Elysia({ prefix: "/myKost" }).guard(
             ...booking,
             kamar: {
               ...booking.kamar,
-              GambarKamar: `/public/${booking.kamar.GambarKamar[0].image}`,
+              GambarKamar: `${process.env.APP_URL}/public/${booking.kamar.GambarKamar[0].image}`,
             },
           };
 

@@ -37,12 +37,12 @@ const clientKostHandler = new Elysia({ prefix: "/client" }).guard({}, (app) =>
         const data = {
           ...kost,
           GambarKost: kost.GambarKost.map(
-            (gambar) => `/public/${gambar.image}`
+            (gambar) => `${process.env.APP_URL}/public/${gambar.image}`
           ),
           Kamar: kost.Kamar.map((kamar) => ({
             ...kamar,
             GambarKamar: kamar.GambarKamar.map(
-              (gambar) => `/public/${gambar.image}`
+              (gambar) => `${process.env.APP_URL}/public/${gambar.image}`
             ),
           })),
         };
@@ -97,7 +97,7 @@ const clientKostHandler = new Elysia({ prefix: "/client" }).guard({}, (app) =>
           occupancy: kamar._count.Booking,
           _count: undefined,
           GambarKamar: kamar.GambarKamar.map(
-            (gambar) => `/public/${gambar.image}`
+            (gambar) => `${process.env.APP_URL}/public/${gambar.image}`
           ),
         }));
 
@@ -165,7 +165,7 @@ const clientKostHandler = new Elysia({ prefix: "/client" }).guard({}, (app) =>
           occupancy: kamar._count.Booking,
           _count: undefined,
           GambarKamar: kamar.GambarKamar.map(
-            (gambar) => `/public/${gambar.image}`
+            (gambar) => `${process.env.APP_URL}/public/${gambar.image}`
           ),
         };
 
