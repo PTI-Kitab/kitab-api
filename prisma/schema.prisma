@@ -66,7 +66,7 @@ enum SupportedBank {
 model Kost {
   id          Int           @id @default(autoincrement())
   namaKost    String
-  description String        @default("")
+  description String        @default("") @db.Text
   alamat      String
   latitude    String
   longitude   String
@@ -98,9 +98,9 @@ enum genderKamar {
 model Kamar {
   id          Int           @id @default(autoincrement())
   namaKamar   String
-  description String        @default("")
+  description String        @default("") @db.Text
   harga       Int
-  fasilitas   String        @default("")
+  fasilitas   String        @default("") @db.Text
   ukuran      String
   gender      genderKamar
   capacity    Int

@@ -8,8 +8,8 @@ export const Kost = t.Object({
   }),
   namaKost: t.String({
     minLength: 3,
-    maxLength: 255,
-    error: "Nama Kost minimal 3 karakter, maksimal 255 karakter",
+    // maxLength: 255,
+    error: "Nama Kost minimal 3 karakter",
   }),
   description: t.String({
     maxLength: 255,

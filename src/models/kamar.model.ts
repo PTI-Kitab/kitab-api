@@ -11,18 +11,16 @@ const kamar = t.Object({
   }),
   description: t.String({
     minLength: 3,
-    maxLength: 255,
-    error: "Deskripsi kamar minimal 3 karakter, maksimal 255 karakter",
+    // maxLength: 255,
+    error: "Deskripsi kamar minimal 3 karakter",
   }),
   harga: t.Number({
-    minLength: 4,
-    maxLength: 255,
-    error: "Harga kamar minimal 4 karakter, maksimal 255 karakter",
+    error: "Harga kamar harus berupa angka rupiah",
   }),
   fasilitas: t.String({
     minLength: 3,
-    maxLength: 255,
-    error: "Fasilitas kamar minimal 3 karakter, maksimal 255 karakter",
+    // maxLength: 255,
+    error: "Fasilitas kamar minimal 3 karakter",
   }),
   ukuran: t.String({
     minLength: 3,
