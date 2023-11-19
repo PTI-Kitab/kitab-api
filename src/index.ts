@@ -1,5 +1,6 @@
 import { Elysia, t } from "elysia";
 import { swagger } from "@elysiajs/swagger";
+import { cors } from "@elysiajs/cors";
 import { staticPlugin } from "@elysiajs/static";
 import ENV from "@/utils/env";
 import { ThrowErrorResponse, errorHandler } from "@/utils/errors";
@@ -32,6 +33,9 @@ const app = new Elysia()
       },
     })
   )
+
+  // eslint-disable-next-line
+  .use(cors())
 
   // use error handler
   .use(errorHandler)
