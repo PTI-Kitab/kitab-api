@@ -10,7 +10,7 @@ import jwtPlugin from "@/plugins/jwt.plugin";
 
 const uploadGambarHandler = new Elysia({ prefix: "/upload" }).guard({}, (app) =>
   app
-    // .use(jwtPlugin)
+    .use(jwtPlugin)
 
     .post(
       "/",
