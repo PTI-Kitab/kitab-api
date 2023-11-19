@@ -11,8 +11,8 @@ const Articles = t.Object({
   }),
   content: t.String({
     minLength: 3,
-    maxLength: 255,
-    error: "Content minimal 3 karakter, maksimal 255 karakter",
+    // maxLength: 255,
+    error: "Content minimal 3 karakter.",
   }),
   createdAt: t.Date({
     error: "Tanggal createdAt tidak valid",
