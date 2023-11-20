@@ -61,7 +61,7 @@ export const KostDto = t.Pick(Kost, [
   "alamat",
   "latitude",
   "longitude",
+  "bank",
   "pembayaran",
-  // "pemilikId",
   "GambarKost",
 ]);
