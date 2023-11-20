@@ -23,7 +23,7 @@ const uploadGambarHandler = new Elysia({ prefix: "/upload" }).guard({}, (app) =>
 
           await Bun.write(`./public/${fileName}`, file);
 
-          result.push(`${process.env.APP_URL}/public/${fileName}`);
+          result.push(fileName);
         }
 
         return successResponse(200, result);
