@@ -52,12 +52,15 @@ const statisticHandler = new Elysia({ prefix: "/statistics" })
 
           const totalEarning = totalCashFlow * 0.1;
 
+          const semuaArticles = await prisma.articles.count();
+
           return successResponse(200, {
             semuaKost,
             semuaKamar,
             semuaBooking,
             semuaClient,
             semuaPemilik,
+            semuaArticles,
             totalCashFlow,
             totalEarning,
           });
