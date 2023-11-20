@@ -41,7 +41,11 @@ const app = new Elysia()
   .use(errorHandler)
 
   // static
-  .use(staticPlugin())
+  .use(
+    staticPlugin({
+      alwaysStatic: true,
+    })
+  )
 
   .get("/", () =>
     successResponse(200, {
