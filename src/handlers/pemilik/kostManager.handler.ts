@@ -597,11 +597,15 @@ const kostManagerHandler = new Elysia({ prefix: "/kostManager" })
       )
       .get(
         "/billing/:kostId",
-        async ({ db, params }) => {
+        async ({ db, params, query }) => {
           const billing = await db.booking.findMany({
             where: {
               kamar: {
                 kostId: params.kostId,
+              },
+              createdAt: {
+                gte: new Date(query.year!, query.month! - 1, 1),
+                lte: new Date(query.year!, query.month!, 0),
               },
             },
             select: {
@@ -633,9 +637,20 @@ const kostManagerHandler = new Elysia({ prefix: "/kostManager" })
           }),
           query: t.Partial(
             t.Object({
-              month: t.Numeric(),
-              year: t.Numeric(),
-            })
+              month: t.Numeric({
+                error: "Bulan harus berupa angka",
+              }),
+              year: t.Numeric({
+                error: "Tahun harus berupa angka",
+              }),
+            }),
+            {
+              error: "Query harus berupa angka",
+              default: {
+                month: new Date().getMonth() + 1,
+                year: new Date().getFullYear(),
+              },
+            }
           ),
           detail: {
             tags: ["KostManager"],
