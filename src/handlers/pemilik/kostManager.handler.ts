@@ -604,8 +604,16 @@ const kostManagerHandler = new Elysia({ prefix: "/kostManager" })
                 kostId: params.kostId,
               },
               createdAt: {
-                gte: new Date(query.year!, query.month! - 1, 1).toISOString(),
-                lte: new Date(query.year!, query.month!, 0).toISOString(),
+                gte: new Date(
+                  query.year ?? new Date().getFullYear(),
+                  query.month ?? new Date().getMonth() - 1,
+                  1
+                ).toISOString(),
+                lte: new Date(
+                  query.year ?? new Date().getMonth(),
+                  query.month ?? new Date().getMonth(),
+                  0
+                ).toISOString(),
               },
             },
             select: {
@@ -643,14 +651,7 @@ const kostManagerHandler = new Elysia({ prefix: "/kostManager" })
               year: t.Numeric({
                 error: "Tahun harus berupa angka",
               }),
-            }),
-            {
-              error: "Query harus berupa angka",
-              default: {
-                month: new Date().getMonth() + 1,
-                year: new Date().getFullYear(),
-              },
-            }
+            })
           ),
           detail: {
             tags: ["KostManager"],
