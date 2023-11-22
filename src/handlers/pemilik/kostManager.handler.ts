@@ -598,6 +598,8 @@ const kostManagerHandler = new Elysia({ prefix: "/kostManager" })
       .get(
         "/billing/:kostId",
         async ({ db, params, query }) => {
+          console.log(query);
+
           const billing = await db.booking.findMany({
             where: {
               kamar: {
@@ -633,6 +635,8 @@ const kostManagerHandler = new Elysia({ prefix: "/kostManager" })
               },
               Payment: true,
             },
+            take: 5,
+            skip: query.page ? (query.page - 1) * 5 : undefined,
           });
 
           return successResponse(200, billing);
@@ -643,14 +647,19 @@ const kostManagerHandler = new Elysia({ prefix: "/kostManager" })
               error: "ID harus berupa angka",
             }),
           }),
-          query: t.Object({
-            month: t.Numeric({
-              error: "Bulan harus berupa angka",
-            }),
-            year: t.Numeric({
-              error: "Tahun harus berupa angka",
-            }),
-          }),
+          query: t.Partial(
+            t.Object({
+              page: t.Numeric({
+                error: "Page harus berupa angka",
+              }),
+              month: t.Numeric({
+                error: "Bulan harus berupa angka",
+              }),
+              year: t.Numeric({
+                error: "Tahun harus berupa angka",
+              }),
+            })
+          ),
 
           detail: {
             tags: ["KostManager"],
