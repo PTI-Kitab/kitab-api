@@ -604,8 +604,8 @@ const kostManagerHandler = new Elysia({ prefix: "/kostManager" })
                 kostId: params.kostId,
               },
               createdAt: {
-                gte: new Date(query.year!, query.month! - 1, 1),
-                lte: new Date(query.year!, query.month!, 0),
+                gte: new Date(query.year!, query.month! - 1, 1).toISOString(),
+                lte: new Date(query.year!, query.month!, 0).toISOString(),
               },
             },
             select: {
