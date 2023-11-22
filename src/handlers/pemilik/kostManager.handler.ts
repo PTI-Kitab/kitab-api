@@ -643,16 +643,15 @@ const kostManagerHandler = new Elysia({ prefix: "/kostManager" })
               error: "ID harus berupa angka",
             }),
           }),
-          query: t.Partial(
-            t.Object({
-              month: t.Numeric({
-                error: "Bulan harus berupa angka",
-              }),
-              year: t.Numeric({
-                error: "Tahun harus berupa angka",
-              }),
-            })
-          ),
+          query: t.Object({
+            month: t.Numeric({
+              error: "Bulan harus berupa angka",
+            }),
+            year: t.Numeric({
+              error: "Tahun harus berupa angka",
+            }),
+          }),
+
           detail: {
             tags: ["KostManager"],
             description: "Get all billing",
