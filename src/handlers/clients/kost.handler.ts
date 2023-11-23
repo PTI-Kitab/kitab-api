@@ -25,6 +25,13 @@ const clientKostHandler = new Elysia({ prefix: "/client" }).guard({}, (app) =>
                     image: true,
                   },
                 },
+                kost: {
+                  select: {
+                    id: true,
+                    namaKost: true,
+                    alamat: true,
+                  },
+                },
               },
             },
             pemilik: {
