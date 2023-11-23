@@ -14,6 +14,11 @@ const listingHandler = new Elysia({ prefix: "/listings" })
           namaKamar: {
             search: query.search,
           },
+          harga: {
+            gte: query.hargaGte,
+            lte: query.hargaLte,
+          },
+          gender: query.gender,
         },
         select: {
           id: true,
@@ -57,6 +62,17 @@ const listingHandler = new Elysia({ prefix: "/listings" })
           page: t.Numeric({
             error: "Page must be numeric",
           }),
+          hargaGte: t.Numeric({
+            error: "Harga lebih dari must be numeric",
+          }),
+          hargaLte: t.Numeric({
+            error: "Harga kurang dari must be numeric",
+          }),
+          gender: t.Union([
+            t.Literal("pria"),
+            t.Literal("wanita"),
+            t.Literal("campur"),
+          ]),
         })
       ),
       detail: {
