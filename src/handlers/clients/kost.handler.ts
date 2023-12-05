@@ -166,6 +166,21 @@ const clientKostHandler = new Elysia({ prefix: "/client" }).guard({}, (app) =>
               },
             },
             GambarKamar: true,
+            kost: {
+              select: {
+                id: true,
+                namaKost: true,
+                alamat: true,
+                pemilik: {
+                  select: {
+                    firstName: true,
+                    lastName: true,
+                    noHp: true,
+                    email: true,
+                  },
+                },
+              },
+            },
           },
           skip: query.page ? (query.page - 1) * 5 : undefined,
           take: 5,
