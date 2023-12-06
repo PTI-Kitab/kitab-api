@@ -260,7 +260,7 @@ const myKostHandler = new Elysia({ prefix: "/myKost" }).guard(
       )
 
       .post(
-        "/booking/:id/payment/callback",
+        "/booking/payment/callback",
         async ({ db, body }) => {
           if (body.transaction_status !== "settlement") {
             throw new ThrowErrorResponse(400, "Payment not settled");
@@ -349,9 +349,6 @@ const myKostHandler = new Elysia({ prefix: "/myKost" }).guard(
           return successResponse(200, "Payment settled");
         },
         {
-          params: t.Object({
-            id: t.Numeric(),
-          }),
           body: MidtransDto,
         }
       )
