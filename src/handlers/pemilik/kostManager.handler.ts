@@ -605,18 +605,18 @@ const kostManagerHandler = new Elysia({ prefix: "/kostManager" })
               kamar: {
                 kostId: params.kostId,
               },
-              createdAt: {
-                gte: new Date(
-                  query.year ?? new Date().getFullYear(),
-                  query.month ?? new Date().getMonth() - 1,
-                  1
-                ).toISOString(),
-                lte: new Date(
-                  query.year ?? new Date().getMonth(),
-                  query.month ?? new Date().getMonth(),
-                  0
-                ).toISOString(),
-              },
+              // createdAt: {
+              //   gte: new Date(
+              //     query.year ?? new Date().getFullYear(),
+              //     query.month ?? new Date().getMonth() - 1,
+              //     1
+              //   ).toISOString(),
+              //   lte: new Date(
+              //     query.year ?? new Date().getMonth(),
+              //     query.month ?? new Date().getMonth(),
+              //     0
+              //   ).toISOString(),
+              // },
             },
             select: {
               id: true,
