@@ -43,7 +43,7 @@ const app = new Elysia()
   // static
   .use(
     staticPlugin({
-      alwaysStatic: true,
+      staticLimit: 1024 * 10,
     })
   )
 
