@@ -141,19 +141,10 @@ const clientKostHandler = new Elysia({ prefix: "/client" }).guard({}, (app) =>
     .get(
       "/kost/:id/kamar/:kamarId",
       async ({ db, params, query }) => {
-        const kost = await db.kost.findFirst({
-          where: {
-            id: params.id,
-          },
-        });
-
-        if (!kost) {
-          throw new ThrowErrorResponse(404, "Kost not found");
-        }
-
         const kamar = await db.kamar.findFirst({
           where: {
-            kostId: params.kamarId,
+            kostId: params.id,
+            id: params.kamarId,
           },
           include: {
             _count: {
@@ -228,18 +219,9 @@ const clientKostHandler = new Elysia({ prefix: "/client" }).guard({}, (app) =>
       app.use(verifyJwt).post(
         "/kost/:id/kamar/:kamarId",
         async ({ db, user, params, body }) => {
-          const kost = await db.kost.findFirst({
-            where: {
-              id: params.id,
-            },
-          });
-
-          if (!kost) {
-            throw new ThrowErrorResponse(404, "Kost not found");
-          }
-
           const kamar = await db.kamar.findFirst({
             where: {
+              kostId: params.id,
               id: params.kamarId,
             },
           });
